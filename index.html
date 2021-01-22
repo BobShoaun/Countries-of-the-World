@@ -4,19 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countries in the world</title>
+  <title>Countries of the world</title>
 </head>
 
 <body>
 
   <header>
-    <h1>Countries in the world</h1>
-    <p class="description">All the countries in the world fetched from https://restcountries.eu/rest/v2</p>
+
+    <h1>Countries of the world</h1>
+    <p class="description">All the countries of the world fetched from https://restcountries.eu/rest/v2</p>
 
     <form id="search">
       <input id="country-name" type="text" placeholder="Search countries..." />
-      <input class="button" type="submit">
+      <input class="button" type="submit" value="Search">
     </form>
+
   </header>
 
   <section id="results">
@@ -123,10 +125,16 @@
 
     #country-name {
       display: inline-block;
-      height: 25px;
-      width: 400px;
-      margin-right: 15px;
-      padding: 0 10px;
+      width: 300px;
+      margin-right: 10px;
+      padding: 5px 15px;
+      border: none;
+      font-size: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+
+    #country-name:focus {
+      outline: none;
     }
 
     #load {
@@ -139,7 +147,7 @@
       background-color: white;
       max-width: 300px;
       cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
     }
 
@@ -148,9 +156,8 @@
     }
 
     .card:hover {
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     }
-
 
     .flag {
       width: 300px;
@@ -176,7 +183,6 @@
       font-family: Helvetica, sans-serif;
       background-color: aliceblue;
       margin: 50px 200px;
-
     }
 
     header,
@@ -195,6 +201,8 @@
       color: white;
       border: none;
       cursor: pointer;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
 
     #page-number {
