@@ -10,10 +10,7 @@
 <body>
 
   <header>
-    <h1>
-      Countries in the world
-    </h1>
-
+    <h1>Countries in the world</h1>
     <p class="description">All the countries in the world fetched from https://restcountries.eu/rest/v2</p>
 
     <form id="search">
@@ -22,12 +19,8 @@
     </form>
   </header>
 
-
-<div class="container">
   <section id="results">
   </section>
-</div>
-
 
   <footer>
     <div class="pagination">
@@ -37,31 +30,34 @@
     </div>
   </footer>
 
-
   <script>
     document.getElementById('search').addEventListener('submit', searchCountries);
-    document.getElementById('previous').addEventListener('click', () => setPage(pageNum - 1));
-    document.getElementById('next').addEventListener('click', () => setPage(pageNum + 1));
+    document.getElementById('previous').addEventListener('click', () => setPage(currentPage - 1));
+    document.getElementById('next').addEventListener('click', () => setPage(currentPage + 1));
 
     getCountries();
 
     let countries = [];
     let countriesPerPage = 9;
-    let pageNum = 0;
+    let currentPage = 0;
 
     function setPage(page) {
       let lastPage = Math.floor(countries.length / countriesPerPage);
+
       if (page < 0)
         page = lastPage;
-      if (page > lastPage)
+      else if (page > lastPage)
         page = 0;
-      pageNum = page;
-      document.getElementById('page-number').innerText = pageNum;
-      let currentCountries = countries.slice(countriesPerPage * pageNum,
-        Math.min(countriesPerPage * pageNum + countriesPerPage, countries.length));
+      
+      currentPage = page;
+      
+      let offset = countriesPerPage * currentPage;
+      let currentCountries = countries.slice(offset,
+        Math.min(offset + countriesPerPage, countries.length));
+
+      document.getElementById('page-number').innerText = `${currentPage} of ${lastPage}`;
       displayCountries(currentCountries);
     }
-
 
     async function getCountries() {
       let response = await fetch('https://restcountries.eu/rest/v2/all')
@@ -72,8 +68,14 @@
     async function searchCountries(e) {
       e.preventDefault();
       let countryName = document.getElementById('country-name').value;
+
+      if (!countryName) {
+        getCountries();
+        return;
+      }
+
       let response = await fetch(`https://restcountries.eu/rest/v2/name/${countryName}`);
-      countries = await response.json();
+      countries = response.ok ? (await response.json()) : [];
       setPage(0);
     }
 
@@ -81,14 +83,14 @@
       let output = "";
       for (let i = 0; i < countries.length; i++) {
         output +=
-          `
+        `
         <div class="card">
           <img class="flag" src="${countries[i].flag}" alt="country flag" />
           <div class="card-content">
             <h2 class="mb"> ${countries[i].name} </h2>
             <p class="mb"> capital: ${countries[i].capital} </p>
             <p class="mb"> region: ${countries[i].region} </p>
-            <p class="mb"> languages: ${countries[i].languages.map(lang => lang.name).join(',')} </p>
+            <p class="mb"> languages: ${countries[i].languages.map(lang => lang.name).join(', ')} </p>
           </div>
         </div>
         `
@@ -120,7 +122,6 @@
     }
 
     #country-name {
-      /* text-align: center; */
       display: inline-block;
       height: 25px;
       width: 400px;
@@ -134,9 +135,7 @@
     }
 
     .card {
-      /* border: 2px solid gray; */
       border-radius: 5px;
-      /* padding: 10px; */
       background-color: white;
       max-width: 300px;
       cursor: pointer;
@@ -156,7 +155,6 @@
     .flag {
       width: 300px;
       height: 200px;
-      /* width: auto; */
       object-fit: contain;
     }
 
@@ -205,7 +203,9 @@
       margin-left: 10px;
       margin-right: 10px;
     }
+
   </style>
+
 </body>
 
 </html>
