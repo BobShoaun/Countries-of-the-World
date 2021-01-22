@@ -5,4 +5,4 @@ Deployed site: https://bobshoaun.github.io/Countries-Of-The-World/
 
 Slides: https://www.canva.com/design/DAECsLyQLvQ/Xj-kZ_mXnQo1-YgkBTATNQ/view?utm_content=DAECsLyQLvQ&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton
 
-Video: coming soon.
+Video: https://youtu.be/w8XMsB82-SQ
